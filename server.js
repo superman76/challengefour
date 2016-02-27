@@ -32,6 +32,10 @@ app.get('/', function(req, res){
 });
 
 
+
+<%= post %>
+
+
 app.use('/api', productRouter);
 
   console.log("-----CREATEING PRODUCTS ------")
