@@ -38,7 +38,7 @@ app.get('/', function(req, res){
 
 app.use('/api', productRouter);
 
-  console.log("-----CREATEING PRODUCTS ------")
+console.log("-----CREATEING PRODUCTS ------")
 var counter = 0;
 for (var i = 0; i < 5; i++) {
     var product = new Product();
