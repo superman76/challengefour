@@ -12,6 +12,8 @@ router.use(function(req, res, next){
 var faker = require('faker');
 var data = {
   people: [
+  {name: "rob"},
+  {name: "guy"}
   ],
   sheep: [
     {name: "bob"},
@@ -23,36 +25,35 @@ var data = {
   greetings: ["hello", "hola", "ciao"]
 };
 
+//Ignore this ugly function...
 var setUpPeople = function(){
   var count = 0;
     Person.find(function(err, people){
       if(err){
         return next(err);
       } else {
-        count = people.length;
-        console.log("COUNT: ", count)
+        if(people.length < 50){
+          console.log("CREATING PEOPLE")
+          for (var i = 0; i < 50; i++) {
+              var person = new Person();
+              person.bank_account = faker.finance.amount();
+              person.birth_date = faker.date.past(),
+              person.country = faker.address.country(),
+              person.img = faker.image.avatar(),
+              person.username = faker.internet.userName(),
+
+              person.save(function(err, person){
+                if(err){
+                  console.log(err)
+                } else {
+                  console.log(person)
+                }
+              })
+            data.people.push(person)
+          };
+        }
       }
     })
-
-    if(count < 50){
-      for (var i = 0; i < 50; i++) {
-          var person = new Person();
-          person.bank_account = faker.finance.amount();
-          person.birth_date = faker.date.past(),
-          person.country = faker.address.country(),
-          person.img = faker.image.avatar(),
-          person.username = faker.internet.userName(),
-
-          person.save(function(err, person){
-            if(err){
-              console.log(err)
-            } else {
-              console.log(person)
-            }
-          })
-        data.people.push(person)
-      };
-    }
 }
 
 setUpPeople();
