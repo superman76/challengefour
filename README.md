@@ -1,3 +1,5 @@
 #Challenge 3
 
-## See public/app.js for details
+## Fix the /api/people GET route to return the deisred repsonse.
+
+## Look in public/app.js to build the proper react components.

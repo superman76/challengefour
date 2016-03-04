@@ -4,11 +4,11 @@ var bodyParser = require('body-parser');
 var faker = require('faker');
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/challangeThree');
+mongoose.connect('mongodb://localhost/challangeFour');
 
-var Product = require('./models/product');
+var Person = require('./models/person');
 
-var productRouter = require('./routes/products');
+var peopleRouter = require('./routes/people');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -22,41 +22,11 @@ app.set('view engine', 'ejs');
 var port = process.env.PORT || 8080;
 
 app.get('/', function(req, res){
-  Product.find(function(err, products){
-    if(err){
-      next (err)
-    } else {
-      res.render('index', { products: products })
-    }
-  })
+  res.render('index')
 });
 
 
-
-<%= post %>
-
-
-app.use('/api', productRouter);
-
-console.log("-----CREATEING PRODUCTS ------")
-var counter = 0;
-for (var i = 0; i < 5; i++) {
-    var product = new Product();
-    product.name = faker.commerce.productName();
-    product.inStock = faker.random.boolean();
-    product.cost = faker.commerce.price();
-
-    product.save(function(err, product){
-      if(err){
-        console.log(err)
-      } else {
-        console.log(product)
-      }
-    })
-    counter++
-
-};
-
+app.use('/api', peopleRouter);
 
 
 app.listen(port, function(){

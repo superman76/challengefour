@@ -1,73 +1,67 @@
 {/* 
-Need to ininitialize the state of products 
-Need to set the state of products
+  HIERARCHY
+
+
+  -PeopleApp (will get data from /api/people and set the state of people)
+    -PeopleList
+      -Person
 */}
 
-var ProductTable = React.createClass({
-  propTypes: {
-    url: React.PropTypes.string.isRequired,
-  },
+var PeopleApp = React.createClass({
   getInitialState: function() {
     return {
-      products: []
+
     }
   },
-  loadProductsFromServer: function() {
-    var anything = this;
+  loadPeopleFromServer: function() {
     $.ajax({
-      url: this.props.url,
-      method: 'GET'
+
     }).done(function(data){
-        anything.setState({
-          products: data
-        })
+      //data
     })
   },
   componentDidMount: function() {
-    this.loadProductsFromServer();
+    this.loadPeopleFromServer();
   },
   render: function() {
     return (
       <div>
-        <ProductList superProducts={this.state.products} />
+        <PeopleList/>
       </div>
       )
   }
 });
 
-var  ProductList = React.createClass({
+var PeopleList = React.createClass({
   render: function() {
-
-    var productRows = this.props.superProducts.filter(function(item){
-      return item.inStock;
-    }).map(function(item){
-      return (
-            <tr>
-              <td> { item.name } </td>
-              <td> { item.cost } </td>
-              <td> { item.inStock.toString() } </td>
-            </tr>
-        )
-    }); 
-        return (
-        <div>
-          <table className="table table-striped">
-            <thead>
-              <tr>
-                <th>product</th>
-                <th>cost </th>
-                <th> inStock </th>
-              </tr>
-            </thead>
-            <tbody>
-
-            { productRows }
-            
-            </tbody>
-          </table>
-        </div>
+    var person = "You will need to map through your data [this.props.people] here and create a <Person/> for each object";
+    return (
+      <div>
+        { person }
+      </div>
       )
   }
 });
 
-React.render(<ProductTable url="api/products" />, document.getElementById('react-container'));
+
+{/*
+  Have this component render actual data.
+  BONUS: Create a function which will take a persons birth_date
+  and calculate their age. Use this function to render the persons age.
+*/}
+var Person = React.createClass({
+  render: function() {
+    return (
+      <div className="panel panel-default">
+        <div classname="panel-body">
+          Persons name, age, etc...
+        </div>
+      </div>
+      )
+  }
+})
+
+
+
+
+React.render(<PeopleApp url="" />, document.getElementById('react-container'));
